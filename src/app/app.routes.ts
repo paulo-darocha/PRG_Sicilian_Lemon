@@ -15,4 +15,19 @@ export const routes: Routes = [
       loadChildren: () =>
          import("./inventory/inventory.module").then((m) => m.InventoryModule),
    },
+   {
+      path: "pos",
+      loadChildren: () => import("./pos/pos.module").then((x) => x.PosModule),
+   },
+   {
+      path: "user",
+      loadChildren: () => import("./user/user.module").then((x) => x.UserModule),
+   },
+   {
+      path: "**",
+      loadComponent: () =>
+         import("./page-not-found/page-not-found.component").then(
+            (x) => x.PageNotFoundComponent
+         ),
+   },
 ];
