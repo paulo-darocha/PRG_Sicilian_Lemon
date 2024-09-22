@@ -1,13 +1,15 @@
+import { AsyncPipe } from "@angular/common";
 import { Component } from "@angular/core";
-import { MatButtonModule } from "@angular/material/button";
-import { RouterLink } from "@angular/router";
-import { FlexModule } from "@ngbracket/ngx-layout";
+import { AuthService } from "../auth/auth.service";
+import { LoginComponent } from "../login/login.component";
 
 @Component({
    selector: "app-home",
-   styles: `div[fxLayout] {margin-top: 32px}`,
    templateUrl: "./home.component.html",
+   styleUrl: "./home.component.scss",
    standalone: true,
-   imports: [FlexModule, MatButtonModule, RouterLink],
+   imports: [AsyncPipe, LoginComponent],
 })
-export class HomeComponent {}
+export class HomeComponent {
+   constructor(public authService: AuthService) {}
+}

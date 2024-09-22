@@ -1,14 +1,30 @@
 import { Routes } from "@angular/router";
-
+import { Role } from "./auth/auth.enum";
+// import { authGuard } from './auth/auth.guard'
 import { HomeComponent } from "./home/home.component";
+import { LoginComponent } from "./login/login.component";
 
 export const routes: Routes = [
    { path: "", redirectTo: "home", pathMatch: "full" },
    { path: "home", component: HomeComponent },
+   { path: "login", component: LoginComponent },
+   { path: "login/:redirectUrl", component: LoginComponent },
    // { path: 'manager', children: managerModuleRoutes }, // Example of eager loading
    {
       path: "manager",
       loadChildren: () => import("./manager/manager.module").then((m) => m.ManagerModule),
+      // canLoad: [authGuard],
+      data: {
+         expectedRole: Role.Manager,
+      },
+   },
+   {
+      path: "user",
+      loadChildren: () => import("./user/user.module").then((m) => m.UserModule),
+   },
+   {
+      path: "pos",
+      loadChildren: () => import("./pos/pos.module").then((m) => m.PosModule),
    },
    {
       path: "inventory",
@@ -16,18 +32,10 @@ export const routes: Routes = [
          import("./inventory/inventory.module").then((m) => m.InventoryModule),
    },
    {
-      path: "pos",
-      loadChildren: () => import("./pos/pos.module").then((x) => x.PosModule),
-   },
-   {
-      path: "user",
-      loadChildren: () => import("./user/user.module").then((x) => x.UserModule),
-   },
-   {
       path: "**",
       loadComponent: () =>
          import("./page-not-found/page-not-found.component").then(
-            (x) => x.PageNotFoundComponent
+            (m) => m.PageNotFoundComponent
          ),
    },
 ];

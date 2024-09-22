@@ -1,6 +1,9 @@
-<div fxLayout="column" fxLayoutAlign="center center">
-   <span class="mat-headline-3">Hello, Limoners!</span>
-   <button mat-raised-button color="primary" routerLink="/manager">
-      Login as Manager
-   </button>
+@if ((authService.authStatus$ | async)?.isAuthenticated) {
+<div>
+   <div class="mat-headline-2">This is LemonTRG! The place where</div>
+   <div class="mat-headline-2">You get a lemon</div>
+   <div class="mat-headline-2">Everybody gets a lemon.</div>
 </div>
+} @else {
+<app-login></app-login>
+}
